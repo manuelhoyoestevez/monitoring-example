@@ -27,14 +27,18 @@ services:
     environment:
       SERVICE_NAME: "me-influxdb"
       INFLUXDB_CONFIG_PATH: "/etc/influxdb/influxdb.conf"
+      INFLUXDB_ADMIN_USER: admin
+      INFLUXDB_ADMIN_PASSWORD: admin123
     volumes:
       - ./influxdb-data:/var/lib/influxdb
       - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - ./setup.iql:/docker-entrypoint-initdb.d/setup.iql:ro
     expose:
       - 8086
     ports:
       - 8086:8086
       - 8088:8088
+#    command: /init-influxdb.sh
 
   me-telegraf-1:
     image: "telegraf:1.19.1"
@@ -44,6 +48,5 @@ services:
       SERVICE_NAME: "me-telegraf-1"
     volumes: 
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-#    command: ['--config /etc/telegraf/telegraf']
     depends_on:
       - me-influxdb
