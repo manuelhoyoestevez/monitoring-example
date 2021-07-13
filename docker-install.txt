@@ -1,0 +1,34 @@
+->Referencias
+    https://docs.docker.com/engine/installation/linux/ubuntu/
+    http://proyectosbeta.net/2016/07/instalar-y-usar-docker-en-ubuntu-14-04-lts/
+    https://www.digitalocean.com/community/tutorials/como-instalar-y-usar-docker-en-ubuntu-16-04-es
+    https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-es
+
+sudo apt update
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+
+#################################################################################################################################################
+
+# Ubuntu 20
+###########
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+
+# Ubuntu 16
+###########
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+sudo apt-get update
+apt-cache policy docker-engine
+sudo apt-get install -y docker-engine
+sudo systemctl status docker
+
+#################################################################################################################################################
+sudo usermod -aG docker $(whoami)
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version

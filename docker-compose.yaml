@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+  me-rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: "me-rabbitmq"
+    hostname: "me-rabbitmq"
+    environment:
+      SERVICE_NAME: "me-rabbitmq"
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    expose:
+      - 5671
+      - 5672
+      - 15672
+    ports:
+      - 5671:5671
+      - 5672:5672
+      - 15672:15672
+
+  me-influxdb:
+    image: "influxdb:1.8.6"
+    container_name: "me-influxdb"
+    hostname: "me-influxdb"
+    environment:
+      SERVICE_NAME: "me-influxdb"
+    volumes:
+      - ./influxdb-data:/var/lib/influxdb
+      - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    expose:
+      - 8086
+    ports:
+      - 8086:8086
+    command: ['-config /etc/influxdb/influxdb.conf']
+
+  me-telegraf-1:
+    image: "telegraf:1.19.1"
+    container_name: "me-telegraf-1"
+    hostname: "me-telegraf-1"
+    environment:
+      SERVICE_NAME: "me-telegraf-1"
+    volumes: 
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    command: []
