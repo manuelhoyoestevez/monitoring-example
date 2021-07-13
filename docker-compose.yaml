@@ -34,6 +34,7 @@ services:
       - 8086
     ports:
       - 8086:8086
+      - 8088:8088
 
   me-telegraf-1:
     image: "telegraf:1.19.1"
@@ -43,4 +44,6 @@ services:
       SERVICE_NAME: "me-telegraf-1"
     volumes: 
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-    command: []
+#    command: ['--config /etc/telegraf/telegraf']
+    depends_on:
+      - me-influxdb

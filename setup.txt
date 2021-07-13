@@ -1,0 +1,6 @@
+create database telegraf
+create user telegraf with password 'hakase-ndlr'
+
+
+influx -execute "create database telegraf"
+influx -execute "create user telegraf with password 'hakase-ndlr'"
