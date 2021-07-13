@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   me-rabbitmq:
-    image: "rabbitmq:3-management"
+    image: "rabbitmq:3.8.19-management"
     container_name: "me-rabbitmq"
     hostname: "me-rabbitmq"
     environment:
@@ -26,6 +26,7 @@ services:
     hostname: "me-influxdb"
     environment:
       SERVICE_NAME: "me-influxdb"
+      INFLUXDB_CONFIG_PATH: "/etc/influxdb/influxdb.conf"
     volumes:
       - ./influxdb-data:/var/lib/influxdb
       - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
@@ -33,7 +34,6 @@ services:
       - 8086
     ports:
       - 8086:8086
-    command: ['-config /etc/influxdb/influxdb.conf']
 
   me-telegraf-1:
     image: "telegraf:1.19.1"
