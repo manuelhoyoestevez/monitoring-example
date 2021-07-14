@@ -1,12 +1,12 @@
 {
-  "name": "receiver",
+  "name": "monitoring-example-js-scripts",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "send.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Manuel Hoyo Estévez <manuelhoyoestevez@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.8.0"

@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  me-rabbitmq:
+    image: "rabbitmq:3.8.19-management"
+    container_name: "me-rabbitmq"
+    hostname: "me-rabbitmq"
+    environment:
+      SERVICE_NAME: "me-rabbitmq"
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    expose:
+      - 5671
+      - 5672
+      - 15672
+    ports:
+      - 5671:5671
+      - 5672:5672
+      - 15672:15672
