@@ -17,16 +17,13 @@ amqp.connect('amqp://rabbitmq:rabbitmq@localhost:5672/', function(error0, connec
         }
 
         channel.assertExchange(exchangeName, exchangeType, { durable: true });
-
         channel.assertQueue('telegraf', { exclusive: true }, function(error2, q) {
             if (error2) {
                 throw error2;
             }
 
             console.log(' [*] Waiting for logs. To exit press CTRL+C');
-
             channel.bindQueue(q.queue, exchangeName, routingKey);
-
             channel.consume(q.queue, function(msg) {
                 console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
             }, { noAck: true });

@@ -39,26 +39,26 @@ services:
       - 8086:8086
       - 8088:8088
 
-  me-telegraf-1:
+  me-telegraf-consumer:
     image: "telegraf:1.19.1"
-    container_name: "me-telegraf-1"
-    hostname: "me-telegraf-1"
+    container_name: "me-telegraf-consumer"
+    hostname: "me-telegraf-consumer"
     environment:
-      SERVICE_NAME: "me-telegraf-1"
+      SERVICE_NAME: "me-telegraf-consumer"
     volumes:
-      - ./telegraf-1.conf:/etc/telegraf/telegraf.conf:ro
+      - ./telegraf-consumer.conf:/etc/telegraf/telegraf.conf:ro
     depends_on:
       - me-influxdb
       - me-rabbitmq
 
-  me-telegraf-2:
+  me-telegraf-producer:
     image: "telegraf:1.19.1"
-    container_name: "me-telegraf-2"
-    hostname: "me-telegraf-2"
+    container_name: "me-telegraf-producer"
+    hostname: "me-telegraf-producer"
     environment:
-      SERVICE_NAME: "me-telegraf-2"
+      SERVICE_NAME: "me-telegraf-producer"
     volumes:
-      - ./telegraf-2.conf:/etc/telegraf/telegraf.conf:ro
+      - ./telegraf-producer.conf:/etc/telegraf/telegraf.conf:ro
     depends_on:
       - me-influxdb
       - me-rabbitmq
