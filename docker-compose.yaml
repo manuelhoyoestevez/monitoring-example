@@ -1,21 +1,21 @@
-version: '3.1'
+# version: '3.1'
 
 services:
   me-rabbitmq:
-    image: "rabbitmq:3.8.19-management"
+    image: "rabbitmq:3.8.19-management" #version
     container_name: "me-rabbitmq"
     hostname: "me-rabbitmq"
     environment:
       SERVICE_NAME: "me-rabbitmq"
-      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-      RABBITMQ_DEFAULT_USER: "rabbitmq"
-      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG" #
+      RABBITMQ_DEFAULT_USER: "rabbitmq" #creo un usuario
+      RABBITMQ_DEFAULT_PASS: "rabbitmq" #creo el password
       RABBITMQ_DEFAULT_VHOST: "/"
-    expose:
+    expose: #los puertos para exponerlos dentro d la red y otros contenedores puedan atacarlos
       - 5671
       - 5672
       - 15672
-    ports:
+    ports: #mapea los puertos puerto del ordenador:ppuerto del contenedor
       - 5671:5671
       - 5672:5672
       - 15672:15672
@@ -26,10 +26,10 @@ services:
     hostname: "me-influxdb"
     environment:
       SERVICE_NAME: "me-influxdb"
-      INFLUXDB_CONFIG_PATH: "/etc/influxdb/influxdb.conf"
+      INFLUXDB_CONFIG_PATH: "/etc/influxdb/influxdb.conf" #ruta donde esta el fichero de configuración , en linux
       INFLUXDB_ADMIN_USER: admin
       INFLUXDB_ADMIN_PASSWORD: admin123
-    volumes:
+    volumes: #mapeo de carpetas de la maquina local a la carpeta del contenedor
       - ./influxdb-data:/var/lib/influxdb
       - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - ./setup.iql:/docker-entrypoint-initdb.d/setup.iql:ro
