@@ -38,7 +38,6 @@ services:
     ports:
       - 8086:8086
       - 8088:8088
-#    command: /init-influxdb.sh
 
   me-telegraf-1:
     image: "telegraf:1.19.1"
@@ -46,7 +45,20 @@ services:
     hostname: "me-telegraf-1"
     environment:
       SERVICE_NAME: "me-telegraf-1"
-    volumes: 
-      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    volumes:
+      - ./telegraf-1.conf:/etc/telegraf/telegraf.conf:ro
     depends_on:
       - me-influxdb
+      - me-rabbitmq
+
+  me-telegraf-2:
+    image: "telegraf:1.19.1"
+    container_name: "me-telegraf-2"
+    hostname: "me-telegraf-2"
+    environment:
+      SERVICE_NAME: "me-telegraf-2"
+    volumes:
+      - ./telegraf-2.conf:/etc/telegraf/telegraf.conf:ro
+    depends_on:
+      - me-influxdb
+      - me-rabbitmq
