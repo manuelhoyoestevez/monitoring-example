@@ -3,6 +3,8 @@
 const exchangeName = 'influx';
 const exchangeType = 'direct';
 const routingKey = 'telegraf';
+const queueName = 'cola_telegraf'
+
 
 const amqp = require('amqplib/callback_api');
 
@@ -17,16 +19,15 @@ amqp.connect('amqp://rabbitmq:rabbitmq@localhost:5672/', function(error0, connec
         }
 
         channel.assertExchange(exchangeName, exchangeType, { durable: true });
-        channel.assertQueue('telegraf', { exclusive: true }, function(error2, q) {
-            if (error2) {
-                throw error2;
-            }
 
-            console.log(' [*] Waiting for logs. To exit press CTRL+C');
-            channel.bindQueue(q.queue, exchangeName, routingKey);
-            channel.consume(q.queue, function(msg) {
+        channel.assertQueue(queueName, { durable: false });
+
+        channel.bindQueue(queueName, exchangeName, routingKey);
+
+        console.log(' [*] Waiting for logs. To exit press CTRL+C');
+
+        channel.consume(queueName, function(msg) {
                 console.log(" [x] %s: '%s'", msg.fields.routingKey, msg.content.toString());
-            }, { noAck: true });
-        });
+        }, { noAck: true });
     });
 });

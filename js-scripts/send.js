@@ -3,6 +3,8 @@
 const exchangeName = 'influx';
 const exchangeType = 'direct';
 const routingKey = 'telegraf';
+const queueName = 'cola_telegraf'
+const messagePayload = 'Hello World!';
 
 const amqp = require('amqplib/callback_api');
 
@@ -16,15 +18,17 @@ amqp.connect('amqp://rabbitmq:rabbitmq@localhost:5672/', function(error0, connec
             throw error1;
         }
 
-        const msg = 'Hello World!';
-
         channel.assertExchange(exchangeName, exchangeType, { durable: true });
-        channel.publish(exchangeName, routingKey, Buffer.from(msg));
-        console.log(" [x] Sent %s: '%s'", routingKey, msg);
-    });
 
-    setTimeout(function() {
-        connection.close();
-        process.exit(0);
-    }, 500);
+        channel.assertQueue(queueName, { durable: false });
+
+        channel.bindQueue(queueName, exchangeName, routingKey);
+
+        channel.sendToQueue(queueName, Buffer.from(messagePayload));
+
+        setTimeout(function() {
+            connection.close();
+            process.exit(0)
+        }, 500);
+    });
 });
