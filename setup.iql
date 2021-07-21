@@ -1,2 +1,0 @@
-create database telegraf
-create user telegraf with password 'hakase-ndlr'

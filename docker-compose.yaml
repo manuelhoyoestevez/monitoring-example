@@ -37,6 +37,21 @@ services:
     ports:
       - 8086:8086
 
+  me-postgres:
+    container_name: me-postgres
+    hostname: me-postgres
+    image: postgres:9.6.2
+    restart: always
+    environment:
+      POSTGRES_USER: bjumper
+      POSTGRES_PASSWORD: bjumper
+      POSTGRES_DB: bjumper
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes: #mapeo de carpetas de la maquina local a la carpeta del contenedor
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
+    ports:
+      - 5432:5432
+
   me-telegraf-consumer:
     image: "telegraf:1.19.1"
     container_name: "me-telegraf-consumer"

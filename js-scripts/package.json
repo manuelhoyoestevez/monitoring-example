@@ -9,6 +9,7 @@
   "author": "Manuel Hoyo Estévez <manuelhoyoestevez@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.8.0"
+    "amqplib": "^0.8.0",
+    "pg": "^8.6.0"
   }
 }
