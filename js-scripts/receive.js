@@ -20,7 +20,7 @@ amqp.connect('amqp://rabbitmq:rabbitmq@localhost:5672/', function(error0, connec
 
         channel.assertExchange(exchangeName, exchangeType, { durable: true });
 
-        channel.assertQueue(queueName, { durable: false });
+        channel.assertQueue(queueName, { durable: true });
 
         channel.bindQueue(queueName, exchangeName, routingKey);
 
