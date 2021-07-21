@@ -11,5 +11,7 @@
   "dependencies": {
     "@influxdata/influxdb-client": "^1.15.0",
     "amqplib": "^0.8.0"
+    
+    "pg": "^8.6.0"
   }
 }
