@@ -9,6 +9,7 @@
   "author": "Manuel Hoyo Estévez <manuelhoyoestevez@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.15.0",
     "amqplib": "^0.8.0"
   }
 }

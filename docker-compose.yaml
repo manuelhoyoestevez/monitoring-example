@@ -48,15 +48,3 @@ services:
     depends_on:
       - me-influxdb
       - me-rabbitmq
-
-  me-telegraf-producer:
-    image: "telegraf:1.19.1"
-    container_name: "me-telegraf-producer"
-    hostname: "me-telegraf-producer"
-    environment:
-      SERVICE_NAME: "me-telegraf-producer"
-    volumes:
-      - ./telegraf-producer.conf:/etc/telegraf/telegraf.conf:ro
-    depends_on:
-      - me-influxdb
-      - me-rabbitmq
